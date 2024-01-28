@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html>
+
+<head class="banner">
+    <link rel="stylesheet" href="style.css">
+    <script type="module" src="./indexNew.js"></script>
+
+    <title>Visualisation Exercise</title>
+</head>
+
+<body class="content">
+    <main>
+        <h2>Assignment 2</h2>
+
+        <section>
+            <h3>Introduction</h3>
+            <div>
+                <p>It is time to show case your Javascript skills with <b>d3.js</b>! In this assignment you will apply
+                    your knowledge from the previous assignment about visual encoding. You will also be required to
+                    implement, using d3.js, two well-known multi-attributes visualization techniques, namely <b>the
+                        scatter plot matrix</b> and <b>the parallel coordinates</b> which have been introduted in the
+                    lecture. <b>Brushing</b> technique will be used to interact with the data. Optionally, you can also
+                    implement <b>linking</b> to show the brushed data simultaneously on both plots.
+                    Overall, your tasks are:
+                <ol>
+                    <li>Load and filter the dataset </li>
+                    <li>Decide on 3 numerical attributes and 1 categorical attributes from the given dataset you
+                        would to display!</li>
+                    <li>Create the attribute labels.</li>
+                    <li>Create the scatter plot matrix of those 4 attributes with the brushing technique </li>
+                    <li>Create the parallel coordinates plot of those 4 attributes with the brushing technique</li>
+                    <li><i>Optional, link both plots with the brush together</i></li>
+
+                </ol>
+                For this exercise, all your solution must be implemented by yourself in <b>index.js</b> script. Your
+                solution will appear under <i>div#visualization</i> element in the <b>index.html</b>.
+                </p>
+
+            </div>
+            <div id="visualization"></div>
+        </section>
+
+        <section>
+            <div class="task">
+                <h3>Task 1: Prepare your data (10%)</h3>
+                <p>
+                    To start, you have to prepare your data and label before implementing the visualization technique.
+                    In the global scope of the <b>index.js</b> you are tasked with:
+                <ol>
+                    <li>
+                        Loading and filtering the dataset.
+                    </li>
+                    <li>
+                        Defining your 3 numerical and 1 categorical attributes
+                    </li>
+                    <li>
+                        Defining the color mapping/scheme you are using for labeling your data points and lines in both
+                        plots
+                    </li>
+                </ol>
+                <i>Hint: Take a quick look into the dataset and decide what kind of information that
+                    you want to convey with both the Scatter Plot Matrix and the Parallel Coordinates! Filtering
+                    the dataset is useful to avoid cluttering and elminate irrelevant data. Regarding coloration,
+                    take a look at <a href="https://observablehq.com/@d3/d3-scaleordinal"
+                        id="codearea">d3.scaleOrdinal</a>.</i>
+                </p>
+                </i>
+            </div>
+
+        </section>
+
+
+        <section>
+            <div class="task">
+                <h3>Task 2: Create colored label (10%)</h3>
+                <p>
+                    Before visualizing the dataset in each plots, it is often beneficial to
+                    encode the attributes and show first the labels to convey identity or magnitude of
+                    the data. In this function you need to make a consistent color labelling, so that
+                    viewers can associate which data to which color within and across multiple plots. Implement your
+                    label in <span id="codearea"> createLabel()</span> function!
+                </p>
+
+                <i>
+                    <p>
+                        Hints: Use the color mapping/scheme you defined before to serve as the visual channel for the
+                        label. You are free to decide which marks you are using for this. Depending on the
+                        attribute you want to encode here, text label might be useful.
+                    </p>
+
+                </i>
+
+            </div>
+
+
+
+        </section>
+
+
+
+        <section>
+            <div class="task">
+                <h3>Task 3: Create the scatter plot matrix for each numerical attributes pair (35%)
+                </h3>
+                <p>
+                    In a scatter plot matrix, each attribute is assigned to one column
+                    and one row of a matrix such that each cell contains a combination
+                    of two attributes that are then depicted by a scatter plot. A helper function <span
+                        id="codearea">createScatterPlotMatrix</span> function is provided to create 3 x 3 matrix space
+                    for scatter plots for each pair of numerical attributes. You are required to
+                    express the pairwise combination attribute value of the data on each cell.
+                    In this task, you need to:
+                <ol>
+                    <li>
+                        Show the points for all the data accordingly
+                    </li>
+                    <li>
+                        Create the axes with sufficient ticks
+                    </li>
+                </ol>
+                Write your implementation in the <span id="codearea"> scatterPlot </span> function! You are free to
+                take ideas from web examples, but we require you to write your own code.
+
+                </p>
+                <p>
+                    <i>Hints: You might encounter some data that are not properly read/loaded due to mistakes in the
+                        dataset
+                        itself. For this, you might need to use <a
+                            href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/parseFloat?retiredLocale=de"
+                            id="codearea">parseFloat</a> so that all numerical attribute values is
+                        guaranteed to be stored as floats. All the data exist in the different cells so make sure to
+                        scale the attributes value according the axes and transform their position to the correct place!
+                    </i>
+                </p>
+            </div>
+        </section>
+
+        <section>
+
+            <div class="task">
+
+                <h3>
+                    Task 4: Create horizontal parallel coordinates (35%)
+                </h3>
+
+                <p>
+
+                    Realize the parallel coordinate plot with the same attributes as the
+                    scatter plot matrix. In contrast to scatter plot matrixes, in a parallel coordinates plot
+                    each attribute is represented by a single axis parallel to all others
+                    and each data item shows as a polyline instead of a point.
+                    You are expected to
+                <ol>
+                    <li>
+                        Show the vertical axes next after the other horizontally
+                    </li>
+                    <li>
+                        Label the axes and show the ticks
+                    </li>
+
+                    <li>
+                        Produces connected lines for all data
+                    </li>
+                </ol>
+                Use the same color scheme as the previous task.
+                </p>
+                <i>
+                    <p>
+                        Hints:
+                        To implement the parallel coordinates plot, you will need a storage (for example a
+                        <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map"
+                            id="codearea">map</a>)
+                        to hold your scales for each axis. The usage of an JavaScript
+                        object is not recommended here, since it is not iterable and,
+                        therefore, cannot be used to create the axes with the usual
+                        join pattern.
+                        Another useful tool, provided by d3 is the
+                        <a href="https://observablehq.com/@d3/d3-line" id="codearea">d3.line</a> function,
+                        that -- given an array of <span id="codearea">[x,y]</span> values -- creates a string for an
+                        SVG (cor canvas) path, that can then be used inside a SVG path element's
+                        <b>d</b> attribute. Same as previous task, if you encounter problem with the data value due to
+                        conversion problem <span id="codearea">parseFloat</span> might help.
+                    </p>
+
+                </i>
+
+            </div>
+        </section>
+
+        <section>
+
+            <div class="task">
+
+                <h3>Task 5: Brushing (10%)</h3>
+                <p>
+                    Add interactivity for both scatter plot matrix and parallel coordinate plot with <b>brushing</b>,
+                    such that selected data is shown much more clearly than the rest. Write your implementation in <span
+                        id="codearea">brushed</span> function.
+                </p>
+                <p>
+                    <i>
+                        Hints:
+                        The example of a brush within a single scatter plot has already
+                        given you some hints as to how a d3.brush can be used. Other examples
+                        in various contexts can be found
+                        <a href="https://observablehq.com/collection/@d3/d3-brush">here</a>.
+                        Please note, that there is not only <span id="codearea">d3.brush</span> , but also <span
+                            id="codearea">d3.brushX</span> or
+                        <span id="codearea">d3.brushY</span> which might make more sense in the context of the parallel
+                        coordinates plot.
+
+                    </i>
+                </p>
+            </div>
+        </section>
+
+
+        <section>
+            <div class="optional">
+                <h3>Task 6: Linking (Optional 10%)</h3>
+                <p>To benefit more from both views and
+                    better understand how a scatter plot would translate into parallel coordinates and
+                    the other way around, linking selections of both visualizations
+                    is essential. Here you are to connect the scatter plots within the scatter plot matrix
+                    and the parallel coordinates and modify the <span id="codearea">brushed</span> function,
+                    such that selected data in the PCP will be reflected onto
+                    the all the plots of the scatter plot matrix and vise versa.
+                </p>
+
+                <p>
+                    <i>
+                        Hint: To implement the linking you have to make use of the <span
+                            id="codearea">selectedItems</span> variable.
+                    </i>
+                </p>
+            </div>
+        </section>
+    </main>
+</body>
+
+
+</html>

@@ -1,0 +1,17 @@
+Task 1: Prepare your dataset (10%)
+Look at the dataset and think of what you can do and what kind of information can be extracted from them
+using the both visualization technique. Then you need to:
+1. Load and filter your dataset to avoid cluttering the visualization space too much
+2. Define 3 numerical and 1 categorical attributes from the dataset
+3. Choose your color mapping
+Task 2: Create label (10%)
+Using the color mapping you chose previously, you need to associate the color channel with one of the
+attributes you have as labels. Feel free to use any type of marks to complement your label.
+Task 3: Create the scatter plot matrix for each numerical attributes pair (35%)
+In a scatter plot matrix, each attribute is assigned to one column and one row of a matrix such that each cell
+contains a combination of two attributes that are then depicted by a scatter plot.
+Helper function to create a 3 x 3 matrix is provided (createScatterPlotMatrix ). You need to complete
+the scatterPlot to show the relationship between the attribute pairwise.
+Check out the lecture or online resources such as observablehq notebook for inspiration!
+Some data may not be successfully read or converted to numerical values. In this case you need
+parseFloat

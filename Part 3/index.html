@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" type="text/css" href="style.css" />
+    <title>Visualization Assignment 3</title>
+    <script src="./node_modules/d3/dist/d3.min.js"></script>
+</head>
+
+<body>
+    <main>
+        <h1><a href="/">Visualization Lab Class 2023</a></h1>
+        <h2>Assignment 3</h2>
+
+        <h3>Time Series</h3>
+        <p>
+            You have seen several techniques for visualizing time series data in the lecture.
+            In this assignment, we're going to visualize box office data of a few movies with a line chart.
+        </p>
+        <p>
+            The box office data is loaded from the <span class="monospace">boxoffice.csv</span>.
+            Each line contains performance indicators such as <i>gross</i> and <i>totalGross</i> of one day for a
+            certain movie.
+            While there is a date attribute, we are going to work with the day attribute which is the number of days
+            since the release.
+            This allows to compare movies that were released on different dates and makes it a bit easier to handle the
+            data.
+            The data that is loaded from the CSV has to be grouped by title which is already done in the <span
+                class="monospace">linechart.js</span>.
+            The grouped data is also printed to the console, so you can inspect its structure there.
+        </p>
+
+        <section>
+            <div class="task">
+                <h3>Task 1: Line Chart (50%)</h3>
+                <p>
+                    Complete the <span class="monospace">linechart.js</span> to actually draw a line chart of the box
+                    office data with the <span class="monospace">day</span> for x and the <span
+                        class="monospace">totalGross</span> for y.
+                <ol>
+                    <li>
+                        Define <span class="monospace">attributeX</span> and <span class="monospace">attributeY</span>
+                        to be the attributes of the boxoffice data that should be used
+                        to fulfill the task above.
+                    </li>
+                    <li>
+                        Create the scales for the x and y axis. The both x and y axis should be linearly scaled with
+                        appropriate domains and ranges according to <span class="monospace">attributeX</span> and <span
+                            class="monospace">attributeY</span> of the boxoffice data.
+                    </li>
+                    <li>
+                        Draw the axis with text label.
+                    </li>
+                    <li>
+                        Draw the line for each movie with distinguishable color scheme.
+                    </li>
+                    <li>
+                        Add labels for each line to the right of the plot at the last position of the line.
+                    </li>
+                </ol>
+                </p>
+                <p>
+                    Hint:
+                <ol>
+                    <li>
+                        You can use <span class="monospace">shortenText</span> to cut
+                        off long movie titles; the function is already imported from the <span
+                            class="monospace">utils.js</span> in the src folder.
+                    </li>
+                    <li>
+                        The <span class="monospace">totalGross</span> attribute is a long string. Therefore, to use it
+                        for labelling the axis tick marks, you need to use the <span
+                            class="monospace">bigMoneyFormat</span> function from the <span
+                            class="monospace">utils.js</span> file with the <span class="monospace"> <a
+                                href="https://github.com/d3/d3-axis"></a>tickFormat</span> .
+                    </li>
+                    <li>
+                        You can use <span class="monospace"><a href="https://github.com/d3/d3-shape#lines">d3.line</a>
+                        </span> to create a line generator. The <span class="monospace">x()</span> function takes the
+                        scaled value of the <span class="monospace">attributeX</span> and the <span
+                            class="monospace">y()</span> function
+                        takes the scaled value of the <span class="monospace">attributeY</span> of each movie data.
+                    </li>
+                    <li>
+                        Drawing the lines means you have to add them as path elements to the <span
+                            class="monospace">series</span> variable.
+                    </li>
+                </ol>
+                </p>
+            </div>
+        </section>
+        <section>
+            <div class="task" id="optional">
+                <h3>Optional Task: Add Brushing to Line Chart (25%)</h3>
+                <p>
+                    Add brushing to the line chart to allow selecting a certain time range.
+                    The selected time range should be used to find the (estimated) change of <span
+                        class="monospace">totalGross</span> of each moview within the time range.
+                    Hint:
+                <ol>
+                    <li>
+                        Use <span class="monospace"> <a href="https://github.com/d3/d3-scale">invert</a></span> function
+                        of the x scale to get the day value of the beginning and end of the brush selection
+                    </li>
+                    <li>
+                        You can use <span class="monospace">interpolateLine</span> function to the estimated <span
+                            class="monospace">totalGross</span> at the beginning and end of the selected time range.
+                    </li>
+
+                </ol>
+                </p>
+            </div>
+        </section>
+
+        <svg id="linechart"></svg>
+
+        <h3>Trees</h3>
+        <p>
+            In the lecture, we're having a look at icicle plots and treemaps as two common ways to visualize tree
+            structures.
+            The data we're going to work with is a hierarchy of movie franchises that is created in the file <span
+                class="monospace">franchises.js</span>.
+            The function returns an object with the property <span class="monospace">name</span> and <span
+                class="monospace">children</span> which again holds
+            similar objects up to the leaves which are movie objects as seen before.
+            Some of these franchises are only a group of certain movies (for example, <i>Pirates of the Caribbean</i>)
+            whereas some also contain subgroups (for
+            example,
+            <i>Harry Potter</i> is subdivided into the original <i>Harry Potter</i> movies and the prequel movies
+            <i>Fantastic Beasts</i>).
+            The franchise data is also printed to the console for you to inspect its structure.
+        </p>
+        <section>
+            <div class="task">
+                <h3>Task 2: Icicle map (50%)</h3>
+                <p>
+                    Implement an icicle map in <span class="monospace">icicle.js</span> using the data that we have
+                    prepared for you in <span class="monospace">franchises.js</span>.
+
+                <ol>
+                    <li>
+                        Define the hierarchy for the data. For this, you should use <a
+                            href="https://github.com/d3/d3-hierarchy#hierarchy"><span
+                                class="monospace">d3.hierarchy</span></a>
+                        to create a hierarchical data structure.
+                    </li>
+                    <li>
+                        Define the partition layout for the icicle map as the <span class="monospace">root</span>
+                        variable. For this, you should use <a href="https://github.com/d3/d3-hierarchy#partition"><span
+                                class="monospace">d3.partition</span></a>
+                    </li>
+                    <li>
+                        Define the maximum depth of the hierarchy/icicle map. This allows you to find an appropriate
+                        horizontal scalling and therefore width of each rectangle node.
+                    </li>
+                    <li>
+                        Create the rectangle denoting the movies and their grouping.Label each rectangle with the title
+                        or franchise name and the sum of their revenue. If the rectangle is too small to fit the text,
+                        do not show the text label!
+                    </li>
+
+                </ol>
+                </p>
+                <p>
+                    Hint:
+                <ol>
+                    <li>
+                        When creating the hierarchy, you have to set the <a
+                            href="https://github.com/d3/d3-hierarchy#node_sum"><span class="monospace">sum
+                                function</span></a> to sum up the
+                        revenue values for each movie or franchise node in the hierarchy.
+                    </li>
+                    <li>
+                        Since the depth of the hierarchy or in this case, the width of the icicle map does not
+                        correspond to any numerical attribute of the data, it makes more sense to use a <a
+                            href="https://github.com/d3/d3-scale"><span class="monospace">scaleBand</span></a>.
+                    </li>
+                    <li>
+                        A helper function <span class="monospace">fontSize</span> is provided to you in <span
+                            class="monospace">icicle.js</span> to calculate the font size for the labels according to
+                        the size of the rectangles. But only use it if the rectangle is big enough to fit the text.
+                        Therefore, filter the data when you are setting up the text label in the <span
+                            class="monospace">text</span> variable.
+                    </li>
+                    <li>
+                        Helper function <span class="monospace">shortenText</span> and <span
+                            class="monospace">bigMoneyFormat</span> are provided to you in <span
+                            class="monospace">utils.js</span> to make the label more readable.
+                    </li>
+
+                </ol>
+
+                </p>
+            </div>
+        </section>
+
+        <div>
+            <svg id="icicle"></svg>
+        </div>
+
+    </main>
+    <script type="module" src="index.js"></script>
+</body>
+
+</html>

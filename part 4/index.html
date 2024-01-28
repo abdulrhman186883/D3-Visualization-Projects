@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" type="text/css" href="style.css" />
+    <script type="module" src="index.js"></script>
+    <script type="module" src="./src/sample.js"></script>
+
+    <title>Assignment 4</title>
+    <style>
+
+    </style>
+</head>
+
+<body>
+    <main>
+        <h1><a href="/">Visualization Lab Class 2023</a></h1>
+        <h2>Assignment 4</h2>
+
+        <section>
+
+            <h3>Theory Recap</h3>
+
+            <p>
+                In the lecture, we have introduced basic visual analytics concepts on what certain visualizations can be
+                used for and how it works. In this task below, you have to find out which of the given visualizations
+                are
+                suitable for the given tasks or action-target pairs.
+            </p>
+
+            <div class="task">
+                <h3>Task 1: Action - Target Pairs (10%)</h3>
+                <p>
+                    Match the following visualizations techniques to the given action-target pairs. Draw the line
+                    between the each technique and the corresponding action-target pair. For that, use the
+                    <code>answerQ1</code>
+                    function in the <code>theory.js</code>.
+            </div>
+            <svg id="theory"></svg>
+        </section>
+
+        <section>
+            <h3>Treemaps</h3>
+            <p>
+                Previously, we introduced some visualization techniques for hierarchically structured data
+                like icicle maps. Another common way to visualize a hierarchical dataset is treemaps. Building treemaps
+                involve a usage of tiling algorithms. One of them is widely used and introduced in Lecture 7, namely
+                Slice and Dice algorithm. Before implementation, you have to understand how the algorithm work on a
+                simple data structure.
+            </p>
+
+            <div class="task">
+                <h3>Task 2: Slice and Dice Algorithm (20%)</h3>
+                <p>
+                    Given the following hierarchy, visualize the treemap using the Slice and Dice algorithm. You can use
+                    any drawing tool you like or draw by hand the resulting treemaps. Take a scan/photo of your solution
+                    and add it below.
+                </p>
+            </div>
+            <svg id="sample"> </svg>
+            <figure>
+
+                <img class="responsive" src="example.jpg" alt="Treemap">
+                <figcaption>Your solution here.</figcaption>
+            </figure>
+
+            <p>
+                Next task requires you to create a treemap using the Slice and Dice algorithm.
+                For that, the data we're going to work with is a hierarchy of movie franchises that is created in the
+                file <code>franchises.js</code> just like the previous assignment.
+            </p>
+            <div class="task">
+                <h3>Task 3: Treemap Implementation (30%)</h3>
+                <p>
+                    Implement the missing parts of the treemap implementation in the <code>treemap.js</code>.
+                </p>
+
+                <p>
+                    Hints:
+
+                <ul>
+                    <li>
+                        The code for the treemap layout has little differences from the implementation of the icicle
+                        layout. You can definitely take inspiration from that.
+                    </li>
+                    <li>
+                        Use the right <code>tile</code> option for the layout!
+                    </li>
+                    <li>
+                        When you define the <code>root</code> variable, the sum of franchise members' revenue needs to
+                        be
+                        calculated.
+                    </li>
+                </ul>
+                </p>
+            </div>
+            <svg id="treemap"></svg>
+
+        </section>
+        <section>
+            <h3>Word Clouds</h3>
+            <p>
+                Text visualizations became more popular with the growing amounts
+                of digitized, textual data. These kinds of visualizations explain
+                relations between textual entities, abstract and summarize text passages
+                and aim for giving users information about the text to help them find
+                relevant text passages more quickly.
+            </p>
+            <p>A Word Cloud is a nice, yet imprecise way to have a look at the textual contents
+                of our data. To get an overview of the movies in our movie database, we will create
+                one Word Cloud per genre based on the movie descriptions.
+            </p>
+            <p>
+                In a first step, you will implement the word cloud using the library <a
+                    href="https://github.com/jasondavies/d3-cloud">d3-cloud</a>.
+                An example
+                of how to use it can be found on <a
+                    href="https://d3-graph-gallery.com/graph/wordcloud_basic.html">D3-graph Gallery</a>.
+                As always, you are not allowed to copy the function, but you can take inspiration from
+                it and adapt it to your needs. The library is already included in the <code>wordcloud.js</code>.
+            </p>
+
+            <div class="task">
+                <h3>Task 4: Word Cloud Implementation (40%)</h3>
+                <p>Implement the missing parts of the word cloud implementation in the <code>wordcloud.js</code>.
+                    Your implementation will automatically be feed with the movie data given in the
+                    <code>index.js</code>. The selection drop down menu is already implemented for you. It contains all
+                    the genres/group of movies in the dataset. The word cloud should be updated when the selection is
+                    changed.
+                </p>
+                <p>
+                    Hints:
+                <ul>
+                    <li>Define the <code>layout</code> variable using the <code>cloud</code> function from the
+                        <code>d3-cloud</code>library.
+                    </li>
+                    <li>
+                        The update function is already defined for you. It is responsible to update the word cloud
+                        layout at the start and when the genre selection is changed. Hence, you need to change the words
+                        inside the layout with the new 100 most frequent words of the selected genre/group.
+                    </li>
+                    <li>
+                        The <code>draw</code> function is also already defined for you. It is responsible to draw the
+                        word cloud layout. It takes an array-like parameter <code>words</code> which is passed
+                        implicitly when the <code>draw</code> function is called on the <code>end</code> of the
+                        <code>layout</code> at which new list of 100 most frequent words should already be updated.
+                    </li>
+
+                    <li>
+                        Calling the <code>draw</code> function at the end of the
+                        <code>layout</code> will ensure that the word cloud is drawn after the layout is finished.
+                    </li>
+                    <li>
+                        To implement the <code>draw</code> function, you need to create a <code>text</code> element for
+                        every word in the <code>words</code> parameter. Since the update is called every time the genre
+                        selection is changed, you need to remove the previous <code>text</code> elements before creating
+                        new ones. To do so, you have to use <code>join</code> function instead of <code>enter</code> and
+                        <code>append</code> functions.
+                    </li>
+                    <li>
+                        The font size you are using for the word cloud depends on the frequency of the word. The more a
+                        word is frequent, the bigger the font size should be. The frequency is already calculated for
+                        you using <code>wordsPerGroup</code> helping function and can be accessed using the
+                        <code>size</code> attribute of the word object.
+                    </li>
+                </ul>
+                </p>
+            </div>
+
+            <select id="genre"></select>
+            <svg id="wordcloud"></svg>
+        </section>
+
+
+    </main>
+</body>
+
+</html>

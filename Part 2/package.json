@@ -1,0 +1,18 @@
+{
+  "name": "2023-a2",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "snowpack dev"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "d3": "^7.4.4",
+    "snowpack": "^3.8.8"
+  },
+  "devDependencies": {},
+  "description": ""
+}
